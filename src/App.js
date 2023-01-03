@@ -2,6 +2,14 @@ import Spline from "@splinetool/react-spline";
 import { useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import jeet from "./images/jeet.jpg";
+import {
+  VerticalTimeline,
+  VerticalTimelineElement,
+} from "react-vertical-timeline-component";
+import "react-vertical-timeline-component/style.min.css";
+import { Experience, SocialLinks } from "./data";
+import { IoLogoGithub } from "react-icons/io5";
+import { Projects } from "./data";
 
 function App() {
   const [isActive, setIsActive] = useState(false);
@@ -85,7 +93,7 @@ function App() {
               </a>
 
               <a
-                href="#contact"
+                href="#contacts"
                 className="text-base text-textBase font-medium hover:text-slate-100 cursor-pointer duration-100 ease-in-out"
                 onClick={() => setIsActive(false)}
               >
@@ -145,7 +153,7 @@ function App() {
               alias assumenda! Assumenda eaque id incidunt nulla officiis labore
               voluptates sed. Quisquam ullam sapiente eius. Porro quo esse earum
               omnis quis. Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. 
+              elit.
             </p>
 
             <button
@@ -153,12 +161,104 @@ function App() {
             overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-tr from-green-400 
             to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white 
             focus:ring-4 focus:ring-green-200 dark:focus:ring-green-800 hover:shadow-lg hover:shadow-teal-500/50 
-            hover:darkdrop-shadow-lg hover:dark:shadow-teal-800/80">
+            hover:darkdrop-shadow-lg hover:dark:shadow-teal-800/80"
+            >
               <span className="w-full md:w-auto relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                 Download
               </span>
             </button>
           </div>
+        </section>
+
+        {/* Timeline */}
+        <section className="w-full flex items-center justify-center">
+          <VerticalTimeline>
+            {Experience &&
+              Experience.map((item) => (
+                <VerticalTimelineElement
+                  key={item.id}
+                  className="vertical-timeline-element--work"
+                  contentStyle={{
+                    background: "rgb(14, 116, 144)",
+                    color: "#fff",
+                  }}
+                  contentArrowStyle={{
+                    borderRight: "7px solid  rgb(14, 116, 144)",
+                  }}
+                  date={item.date}
+                  iconStyle={{ background: "rgb(14, 116, 144)", color: "#fff" }}
+                  icon={item.iconsSrc}
+                >
+                  <h3 className="vertical-timeline-element-title">
+                    {item.title}
+                  </h3>
+                  <h4 className="vertical-timeline-element-subtitle">
+                    {item.location}
+                  </h4>
+                  <p>{item.descreption}</p>
+                </VerticalTimelineElement>
+              ))}
+          </VerticalTimeline>
+        </section>
+
+        {/* Project Section */}
+        <section
+          className="flex flex-wrap items-center justify-center my-24 gap-4"
+          id="projects"
+        >
+          {Projects &&
+            Projects.map((item) => (
+              <div
+                key={item.id}
+                className="border border-zinc-800 mr-5 mt-5 rounded-md p-2 min-w-[27px] md:max-w-[275] hover:border-zinc-600 duration-100 ease-in-out"
+              >
+                <p className="text-lg text-textBase font-medium uppercase">
+                  {item.name}
+                </p>
+                <img
+                  className="w-96 h-52 rounded-lg object-cover my-4"
+                  src={item.imgSrc}
+                  alt="img"
+                />
+
+                <div className="flex flex-1 items-center justify-between">
+                  <p className="text-lg text-gray-300">
+                    Technologies
+                    <span className="block text-sm text-gray-500">
+                      {item.techs}
+                    </span>
+                  </p>
+
+                  <a href={item.github}>
+                    <div>
+                      <IoLogoGithub className="text-textBase text-3xl cursor-pointer" />
+                    </div>
+                  </a>
+                </div>
+              </div>
+            ))}
+        </section>
+
+        {/* Contact Section */}
+        <section
+          className="flex flex-col items-center justify-center w-full my-24"
+          id="contacts"
+        >
+          <p className="text-textBase text-3xl capitalize"> Follow Me On</p>
+          <div className="flex items-center justify-center w-full  my-8 flex-wrap gap-4">
+            {SocialLinks && SocialLinks.map((item) =>(
+              <a
+              key={item.id}
+              href="#"
+              className="w-full md:w-auto px-3 md:px-8 py-5 border border-zinc-800 hover:border-zinc-600 rounded-2xl duration-100 
+              ease-in-out cursor-pointer flex items-center justify-center gap-3"
+            >
+              {item.icon}
+              <p className="text-textBase text-xl"> {item.name} </p>
+            </a>
+            ))}
+          </div>
+          
         </section>
       </main>
     </div>
